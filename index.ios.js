@@ -9,26 +9,54 @@ import {
   AppRegistry,
   StyleSheet,
   Text,
-  View
+  TouchableHighlight,
+  View,
+  Linking,
 } from 'react-native';
+import spotify from 'react-native-spotify';
 
 class KLSPlayer extends Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.ios.js
-        </Text>
-        <Text style={styles.instructions}>
-          Press Cmd+R to reload,{'\n'}
-          Cmd+D or shake for dev menu
-        </Text>
-      </View>
-    );
-  }
+    constructor() {
+        super();
+
+        this.handleOpenURL = this.handleOpenURL.bind(this);
+    }
+    componentDidMount() {
+        spotify.setup('19ff9062336c4833aa842c19d7bd968e');
+        Linking.addEventListener('url', this.handleOpenURL);
+    }
+    componentWillUnmount() {
+        Linking.removeEventListener('url', this.handleOpenURL);
+    }
+    goToLogin() {
+        console.warn('dsfdsf');
+        spotify.goToLogin('klsplayer-spotify-auth://returnafterlogin');
+    }
+    handleOpenURL(event) {
+        console.warn(event);
+        spotify.handleAuthCallbackUrl(event.url, this.playRandomSong);
+    }
+    playRandomSong() {
+        spotify.play('58s6EuEYJdlb0kO7awm3Vp');
+    }
+    render() {
+        return (
+            <View style={styles.container}>
+                <TouchableHighlight onPress={this.goToLogin}>
+                    <Text style={styles.welcome}>
+                      Welcome to React Native!
+                    </Text>
+                </TouchableHighlight>
+                <Text style={styles.instructions}>
+                  To get started, edit index.ios.js
+                </Text>
+                <Text style={styles.instructions}>
+                  Press Cmd+R to reload,{'\n'}
+                  Cmd+D or shake for dev menu
+                </Text>
+            </View>
+        );
+    }
 }
 
 const styles = StyleSheet.create({
