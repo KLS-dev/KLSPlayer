@@ -16,11 +16,9 @@ class Main extends Component {
         Linking.removeEventListener('url', this.handleOpenURL);
     }
     goToLogin() {
-        console.warn('dsfdsf');
         spotify.goToLogin('klsplayer-spotify-auth://returnafterlogin');
     }
     handleOpenURL(event) {
-        console.warn(event);
         spotify.handleAuthCallbackUrl(event.url, this.playRandomSong);
     }
     playRandomSong() {
