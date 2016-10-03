@@ -1,0 +1,23 @@
+{
+    "extends": "airbnb",
+    "env": {
+        "browser": true,
+        "node": true
+    },
+    "parserOptions": {
+        "ecmaFeatures": {
+            "experimentalObjectRestSpread": true
+        }
+    },
+    "rules": {
+        "no-param-reassign": 0,
+        "indent": ["error", 4, {"SwitchCase": 1}],
+        "eqeqeq": ["warn", "smart"],
+        "react/jsx-indent": ["error", 4],
+        "react/jsx-indent-props": ["error", 4],
+        "no-use-before-define": ["error", {
+            "functions": false,
+            "classes": true
+        }]
+    }
+}
