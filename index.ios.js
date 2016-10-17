@@ -1,4 +1,4 @@
 import { AppRegistry } from 'react-native';
-import Main from './src/js/components/Main';
+import AppContainer from './src/js/containers/AppContainer';
 
-AppRegistry.registerComponent('KLSPlayer', () => Main);
+AppRegistry.registerComponent('KLSPlayer', () => AppContainer);
