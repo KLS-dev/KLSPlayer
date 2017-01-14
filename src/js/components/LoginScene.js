@@ -1,20 +1,40 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableHighlight, Animated } from 'react-native';
+import { View, Text, TouchableHighlight, Animated, Dimensions } from 'react-native';
+
+const HEIGHT = Dimensions.get('window').height;
 
 class LoginScene extends Component {
     constructor() {
         super();
 
         this.state = {
-            bounce: new Animated.Value(0),
+            top: new Animated.Value((HEIGHT / 2) - 20),
+            bottom: new Animated.Value(0),
+            container: new Animated.Value(0),
         };
     }
     componentDidMount() {
-        Animated.spring(
-            this.state.bounce,
+        Animated.timing(
+            this.state.top,
             {
-                toValue: 100,
-                friction: 1,
+                toValue: HEIGHT,
+                duration: 300,
+                delay: 200,
+            }
+        ).start();
+        Animated.timing(
+            this.state.bottom,
+            {
+                toValue: (HEIGHT / 2),
+                duration: 500,
+            }
+        ).start();
+        Animated.timing(
+            this.state.container,
+            {
+                toValue: HEIGHT,
+                duration: 500,
+                delay: 500,
             }
         ).start();
     }
@@ -23,6 +43,9 @@ class LoginScene extends Component {
             <Animated.View
                 style={{
                     flex: 1,
+                    transform: [
+                        { translateY: this.state.container },
+                    ],
                     backgroundColor: 'pink',
                     flexDirection: 'column',
                 }}
@@ -40,7 +63,7 @@ class LoginScene extends Component {
                     style={{
                         flex: 1,
                         transform: [
-                            { translateY: this.state.bounce },
+                            { translateY: this.state.top },
                         ],
                         backgroundColor: 'green',
                     }}
@@ -52,6 +75,9 @@ class LoginScene extends Component {
                 <Animated.View
                     style={{
                         flex: 1,
+                        transform: [
+                            { translateY: this.state.bottom },
+                        ],
                         backgroundColor: 'purple',
                     }}
                 >
